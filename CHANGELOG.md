@@ -11,4 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of the npm package.
 
-[Unreleased]: https://github.com/ManuelGil/vscode-code-mark-plus/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/ManuelGil/vscode-marketplace-client/releases/tag/v1.0.0
