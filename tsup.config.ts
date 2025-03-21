@@ -8,6 +8,8 @@ export default defineConfig({
   target: ['es2022', 'node18'],
   dts: true,
   minify: true,
-  sourcemap: false,
-  splitting: false, // desactiva el splitting para generar un único archivo
+  sourcemap: true,
+  splitting: false,
+  treeshake: true,
+  external: ['axios'],
 });

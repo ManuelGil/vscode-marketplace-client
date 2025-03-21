@@ -253,7 +253,7 @@ If you encounter any issues or have suggestions for improvements, please [open a
 
 ## Feedback
 
-If you enjoy using CodeMark+, please consider leaving a review on the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-marketplace-client).
+If you enjoy using **VSCode Marketplace Client**, please consider leaving a review on [GitHub](https://github.com/ManuelGil/nspin) or sharing your feedback.
 
 ## Follow Me
 

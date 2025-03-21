@@ -1,7 +1,7 @@
 {
 	"name": "vscode-marketplace-client",
-	"description": "A library to fetch and download information about Visual Studio Code extensions.",
-	"version": "1.0.0",
+	"description": "A TypeScript library for fetching and managing Visual Studio Code extensions, with version querying, VSIX downloads, and robust error handling.",
+	"version": "1.1.0",
 	"license": "MIT",
 	"author": "ManuelGil",
 	"sponsor": {
@@ -31,19 +31,22 @@
 	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
 	"exports": {
-		"./package.json": "./package.json",
 		".": {
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.js"
-		}
+		},
+		"./package.json": "./package.json"
 	},
+	"sideEffects": false,
 	"files": [
-		"CHANGELOG.md",
-		"dist"
+		"dist",
+		"README.md",
+		"CHANGELOG.md"
 	],
 	"scripts": {
 		"clean": "rimraf dist",
 		"build": "tsup",
+		"pretest": "npm run clean && npm run build",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"format": "prettier --write .",
@@ -51,7 +54,6 @@
 		"ts-check": "tsc --noEmit",
 		"check-format": "prettier --check .",
 		"check-exports": "attw --pack .",
-		"prelink": "npm run clean && npm run build",
 		"link": "cd dist && npm link",
 		"publish:verdaccio": "npm publish --registry http://localhost:4873",
 		"publish": "npm publish --access=public",
@@ -83,7 +85,6 @@
 		"vitest": "^3.0.8"
 	},
 	"lint-staged": {
-		"!(*.ts)": "prettier --write",
 		"*.ts": [
 			"eslint --fix",
 			"prettier --write"
