@@ -61,28 +61,26 @@
 		"release": "release-it"
 	},
 	"dependencies": {
-		"axios": "1.12.2"
+		"axios": "1.15.1"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.17.4",
-		"@commitlint/cli": "^19.8.1",
-		"@commitlint/config-conventional": "^19.8.1",
-		"@eslint/js": "^9.35.0",
-		"@release-it/conventional-changelog": "^10.0.1",
-		"@release-it/keep-a-changelog": "^6.0.0",
-		"@types/axios": "^0.9.36",
-		"@types/node": "^18.19.126",
-		"eslint": "^9.35.0",
-		"globals": "^16.4.0",
+		"@arethetypeswrong/cli": "^0.18.2",
+		"@commitlint/cli": "^20.5.0",
+		"@commitlint/config-conventional": "^20.5.0",
+		"@eslint/js": "^9.39.4",
+		"@types/axios": "^0.14.4",
+		"@types/node": "^20.19.39",
+		"eslint": "^9.39.4",
+		"globals": "^16.5.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.5.2",
-		"prettier": "^3.6.2",
-		"release-it": "^18.1.2",
-		"rimraf": "^6.0.1",
-		"tsup": "^8.5.0",
-		"typescript": "^5.8.2",
-		"typescript-eslint": "^8.26.0",
-		"vitest": "^3.0.8"
+		"prettier": "^3.8.3",
+		"release-it": "^20.0.0",
+		"rimraf": "^6.1.3",
+		"tsup": "^8.5.1",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.58.2",
+		"vitest": "^3.2.4"
 	},
 	"lint-staged": {
 		"*.ts": [
@@ -99,11 +97,6 @@
 		},
 		"npm": {
 			"publish": false
-		},
-		"plugins": {
-			"@release-it/keep-a-changelog": {
-				"filename": "CHANGELOG.md"
-			}
 		}
 	}
 }
