@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-04-23
+
+### Changed
+
+- Improved HTTP client configuration with Axios and custom HTTPS agent.
+- Added timeout configuration to network requests.
+
+### Fixed
+
+- Fixed `ENOENT` error when downloading VSIX files by ensuring output directories are created automatically.
+- Fixed stream handling during downloads using Node.js `pipeline`.
+- Reduced `MaxListenersExceededWarning` during multiple sequential downloads.
+
 ## [1.2.0] - 2026-04-22
 
 ### Added
@@ -38,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of the npm package.
 
-[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.0.0...v1.1.0

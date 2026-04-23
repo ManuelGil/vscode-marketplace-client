@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import https from 'https';
+import { dirname, join } from 'path';
+import { pipeline } from 'stream/promises';
 
-import { createWriteStream } from 'fs';
-import { join } from 'path';
 import {
   ExtensionNotFoundError,
   VersionNotFoundError,
@@ -13,6 +15,15 @@ import type {
   QueryFlag,
   SearchResults,
 } from '../types';
+
+const httpsAgent = new https.Agent({
+  keepAlive: false,
+});
+
+const httpClient = axios.create({
+  httpsAgent,
+  timeout: 15000,
+});
 
 /**
  * Service for interacting with the Visual Studio Marketplace API.
@@ -237,14 +248,22 @@ export class VSCodeMarketplaceService {
    * @returns {Promise<string>} The file path of the downloaded file.
    */
   public async downloadFile(url: string, destination: string): Promise<string> {
-    const response = await axios.get(url, { responseType: 'stream' });
-    const writer = createWriteStream(destination);
+    const dir = dirname(destination);
 
-    return new Promise((resolve, reject) => {
-      (response.data as NodeJS.ReadableStream).pipe(writer);
-      writer.on('finish', () => resolve(destination));
-      writer.on('error', reject);
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
+    }
+
+    const response = await httpClient.get(url, {
+      responseType: 'stream',
     });
+
+    await pipeline(
+      response.data as NodeJS.ReadableStream,
+      createWriteStream(destination),
+    );
+
+    return destination;
   }
 
   /**
@@ -328,7 +347,7 @@ export class VSCodeMarketplaceService {
       flags: (flags as number[]).reduce((acc, flag) => acc | flag, 0),
     };
 
-    const response = await axios.post(this.API_URL, payload, {
+    const response = await httpClient.post(this.API_URL, payload, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json;api-version=6.0-preview.1',

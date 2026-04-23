@@ -1,0 +1,8 @@
+{
+	"name": "vscode-marketplace-client-example",
+	"type": "module",
+	"private": true,
+	"dependencies": {
+		"vscode-marketplace-client": "file:.."
+	}
+}

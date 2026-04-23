@@ -2,22 +2,34 @@ name: Monthly Dependency Audit
 
 on:
   schedule:
-    - cron: "0 3 1 * *"
+    - cron: '0 3 1 * *' # Runs monthly on day 1 at 03:00 UTC
   workflow_dispatch:
 
 jobs:
   audit:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Audit dependencies
+      - name: Run security audit
         run: npm audit --audit-level=moderate
+
+      - name: Fail on vulnerabilities
+        if: failure()
+        run: |
+          echo "Security vulnerabilities detected. Please review npm audit output."
+          exit 1

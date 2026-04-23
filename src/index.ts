@@ -192,3 +192,5 @@ export {
   VSCodeMarketplaceService,
   VsixFileNotFoundError,
 };
+
+export default VSCodeMarketplaceClient;
