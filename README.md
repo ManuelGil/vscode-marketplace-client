@@ -58,10 +58,16 @@ Whether you're building tools to manage VS Code extensions or integrating market
 
 ## Installation
 
-Install the package using npm:
-
 ```bash
 npm install vscode-marketplace-client
+```
+
+```bash
+pnpm add vscode-marketplace-client
+```
+
+```bash
+yarn add vscode-marketplace-client
 ```
 
 ## Usage
@@ -138,13 +144,20 @@ import { VSCodeMarketplaceClient } from 'vscode-marketplace-client';
 The `QueryFlag` type is defined as a union of numeric literals. You can pass these numeric values directly when calling methods. For example:
 
 ```typescript
-// The QueryFlag type is defined as:
-// type QueryFlag = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 16863 | 32768;
-import { VSCodeMarketplaceClient, QueryFlag } from 'vscode-marketplace-client';
+import {
+  VSCodeMarketplaceClient,
+  type QueryFlag,
+} from 'vscode-marketplace-client';
 
+// QueryFlag is a union of numeric literals accepted by the marketplace API.
 const flags: QueryFlag[] = [1, 256]; // 1: IncludeVersions, 256: IncludeStatistics
-const combinedFlags = flags.reduce((acc, flag) => acc | flag, 0);
-console.log('Combined Flags:', combinedFlags);
+
+const extensionInfo = await VSCodeMarketplaceClient.getExtensionInfo(
+  'ms-vscode',
+  'cpptools',
+  flags,
+);
+console.log(extensionInfo.displayName);
 ```
 
 For more details, refer to the [official documentation](https://learn.microsoft.com/en-us/javascript/api/azure-devops-extension-api/extensionqueryflags).
@@ -228,10 +241,12 @@ import {
 
 The package uses custom error classes for precise error handling:
 
-- **VSCodeExtensionError:** Base error class for VS Code extension-related issues.
+- **VSCodeExtensionError:** Base error class for VS Code extension-related issues (including unexpected API response shapes).
 - **ExtensionNotFoundError:** Thrown when the requested extension is not found.
 - **VersionNotFoundError:** Thrown when a specified version is not found.
 - **VsixFileNotFoundError:** Thrown when the corresponding VSIX file cannot be located.
+
+Network failures, HTTP errors, and timeouts surface as **Axios** errors (for example `AxiosError` from `axios`). Handle them separately from the domain errors above, for example with `axios.isAxiosError` from `axios`.
 
 Example usage:
 
@@ -253,7 +268,7 @@ If you encounter any issues or have suggestions for improvements, please [open a
 
 ## Feedback
 
-If you enjoy using **VSCode Marketplace Client**, please consider leaving a review on [GitHub](https://github.com/ManuelGil/nspin) or sharing your feedback.
+If you enjoy using **VSCode Marketplace Client**, please consider leaving a review on [GitHub](https://github.com/ManuelGil/vscode-marketplace-client) or sharing your feedback.
 
 ## Follow Me
 

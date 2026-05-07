@@ -187,6 +187,7 @@ export {
   type ExtensionInfo,
   ExtensionNotFoundError,
   type ExtensionVersion,
+  type QueryFlag,
   VersionNotFoundError,
   VSCodeExtensionError,
   VSCodeMarketplaceService,

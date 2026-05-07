@@ -1,15 +1,33 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entryPoints: ['src/index.ts'],
+  entry: ['src/index.ts'],
+
   outDir: 'dist',
+
   clean: true,
+
   format: ['esm', 'cjs'],
-  target: ['es2022', 'node18'],
+
+  target: 'node18',
+
+  platform: 'node',
+
   dts: true,
-  minify: true,
+
   sourcemap: true,
-  splitting: false,
+
   treeshake: true,
+
+  splitting: false,
+
+  minify: true,
+
   external: ['axios'],
+
+  outExtension({ format }) {
+    return {
+      js: format === 'esm' ? '.mjs' : '.js',
+    };
+  },
 });

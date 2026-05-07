@@ -1,28 +1,41 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"moduleResolution": "Bundler",
+		"target": "ES2022",
+
 		"module": "ESNext",
-		"types": [
-			"node"
-		],
+
+		"moduleResolution": "Bundler",
+
+		"types": ["node"],
+
 		"strict": true,
+
 		"declaration": true,
+
+		"declarationMap": true,
+
 		"rootDir": "./src",
-		"declarationDir": "./dist",
+
 		"outDir": "./dist",
+
 		"stripInternal": true,
+
 		"verbatimModuleSyntax": true,
+
 		"skipLibCheck": true,
+
 		"allowSyntheticDefaultImports": true,
+
 		"resolveJsonModule": true,
+
+		"isolatedModules": true,
+
+		"noEmit": true,
+
+		"forceConsistentCasingInFileNames": true,
+
 		"emitDecoratorMetadata": false
 	},
-	"include": [
-		"src/**/*.ts"
-	],
-	"exclude": [
-		"node_modules",
-		"dist"
-	]
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
 }

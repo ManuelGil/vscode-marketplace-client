@@ -7,43 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Exported `QueryFlag` from the package entry point.
+
+### Changed
+
+- Improved domain error consistency.
+- Reduced redundant marketplace requests during VSIX downloads.
+
+### Fixed
+
+- Improved handling of malformed marketplace responses.
+- Updated README examples and installation instructions.
+
 ## [1.2.1] - 2026-04-23
 
 ### Changed
 
-- Improved HTTP client configuration with Axios and custom HTTPS agent.
-- Added timeout configuration to network requests.
+- Improved HTTP client configuration and request timeout handling.
 
 ### Fixed
 
-- Fixed `ENOENT` error when downloading VSIX files by ensuring output directories are created automatically.
+- Fixed `ENOENT` errors during VSIX downloads by automatically creating output directories.
 - Fixed stream handling during downloads using Node.js `pipeline`.
 - Reduced `MaxListenersExceededWarning` during multiple sequential downloads.
 
 ## [1.2.0] - 2026-04-22
 
-### Added
-
-- Integración de CI (GitHub Actions) para auditoría mensual de dependencias con npm.
-
 ### Changed
 
-- Update dependencies to their latest versions for improved performance and security.
+- Improved dependency maintenance and project automation.
 
 ## [1.1.1] - 2025-09-16
 
 ### Changed
 
-- Update dependencies to their latest versions for improved performance and security.
+- Updated project dependencies for improved stability and security.
 
 ## [1.1.0] - 2025-03-21
 
 ### Changed
 
-- Enhance `package.json` metadata to improve the build process and ensure compatibility ESM and CJS.
-- Update `CHANGELOG.md` to include the new versioning format.
-- Update `tsconfig.json` to exclude of `declarations` for improved build performance.
-- Update `tsup.config.ts` to enable `treeshake` and `sourcemap` options for better performance and smaller bundle size.
+- Improved package metadata and ESM/CJS compatibility.
+- Improved bundle optimization and source map generation.
 
 ## [1.0.0] - 2025-03-08
 

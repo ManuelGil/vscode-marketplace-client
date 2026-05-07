@@ -7,6 +7,7 @@ import { pipeline } from 'stream/promises';
 import {
   ExtensionNotFoundError,
   VersionNotFoundError,
+  VSCodeExtensionError,
   VsixFileNotFoundError,
 } from '../errors';
 import type {
@@ -101,9 +102,16 @@ export class VSCodeMarketplaceService {
     flags: QueryFlag[],
   ): Promise<ExtensionInfo> {
     const results = await this.fetchExtensionData(publisher, extension, flags);
-    const extensions = results[0].extensions;
+    const firstResult = results[0];
+    if (!firstResult || !Array.isArray(firstResult.extensions)) {
+      throw new VSCodeExtensionError(
+        `Unexpected marketplace response shape for "${publisher}.${extension}".`,
+      );
+    }
+
+    const extensions = firstResult.extensions;
     if (extensions.length === 0) {
-      throw new ExtensionNotFoundError('Extension not found.');
+      throw new ExtensionNotFoundError(`${publisher}.${extension}`);
     }
 
     return extensions[0];
@@ -143,15 +151,21 @@ export class VSCodeMarketplaceService {
       extension,
       [1, 2],
     );
+    const extensionKey = `${publisher}.${extension}`;
+
     if (!version) {
-      return extensionInfo.versions[0];
+      const latest = extensionInfo.versions[0];
+      if (!latest) {
+        throw new VersionNotFoundError(extensionKey, '(latest)');
+      }
+      return latest;
     }
 
     const foundVersion = extensionInfo.versions.find(
       (v: ExtensionVersion) => v.version === version,
     );
     if (!foundVersion) {
-      throw new VersionNotFoundError('Version not found.', version);
+      throw new VersionNotFoundError(extensionKey, version);
     }
 
     return foundVersion;
@@ -221,7 +235,7 @@ export class VSCodeMarketplaceService {
         file.assetType === 'Microsoft.VisualStudio.Services.VSIXPackage',
     );
     if (!vsixAsset) {
-      throw new VsixFileNotFoundError('VSIX file not found.');
+      throw new VsixFileNotFoundError(`${publisher}.${extension}`);
     }
 
     return vsixAsset.source;
@@ -296,13 +310,19 @@ export class VSCodeMarketplaceService {
       publisher,
       extension,
     );
-    const downloadUrl = await this.getVsixDownloadUrl(publisher, extension);
+    const vsixAsset = extensionVersion.files.find(
+      (file) =>
+        file.assetType === 'Microsoft.VisualStudio.Services.VSIXPackage',
+    );
+    if (!vsixAsset) {
+      throw new VsixFileNotFoundError(`${publisher}.${extension}`);
+    }
     const filePath = join(
       outputDir,
       `${publisher}.${extension}-${extensionVersion.version}.vsix`,
     );
 
-    return this.downloadFile(downloadUrl, filePath);
+    return this.downloadFile(vsixAsset.source, filePath);
   }
 
   // Private methods
@@ -353,7 +373,12 @@ export class VSCodeMarketplaceService {
         Accept: 'application/json;api-version=6.0-preview.1',
       },
     });
-    const data = response.data as { results: SearchResults[] };
+    const data = response.data as { results?: SearchResults[] };
+    if (!data || !Array.isArray(data.results)) {
+      throw new VSCodeExtensionError(
+        `Unexpected marketplace response for "${publisher}.${extension}".`,
+      );
+    }
 
     return data.results;
   }
