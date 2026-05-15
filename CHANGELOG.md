@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-06-14
+
+### Fixed
+
+- Resolved `pnpm audit` vulnerabilities affecting transitive dependencies (`fast-uri` and `@conventional-changelog/git-client`) by adding pnpm overrides.
+- Fixed CI audit workflow failures caused by security vulnerabilities detected during dependency checks.
+
 ### [1.2.2] - 2026-05-06
 
 ### Added
@@ -60,7 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of the npm package.
 
-[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.1.1...v1.2.0
