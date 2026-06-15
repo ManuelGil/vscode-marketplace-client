@@ -7,7 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.2.3] - 2026-06-14
+## [1.2.4] - 2026-06-15
+
+### Changed
+
+- Update development dependencies to their latest compatible versions.
+- Update `release-it` to improve the release workflow.
+- Update `vitest` and related testing dependencies.
+- Update `tsup` and build tooling dependencies.
+- Refresh the lockfile to resolve dependency versions consistently.
+- Update GitHub Actions workflows to use newer action versions.
+
+### Fixed
+
+- Resolve security vulnerabilities reported by `pnpm audit`.
+- Upgrade transitive dependencies to patched versions of `esbuild`.
+- Improve dependency resolution to prevent audit failures in continuous integration.
+- Ensure dependency installation succeeds with current package manager versions.
+
+## [1.2.3] - 2026-05-14
 
 ### Fixed
 
@@ -67,7 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of the npm package.
 
-[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.3...HEAD
+[Unreleased]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.4...HEAD
+[1.2.4]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/ManuelGil/vscode-marketplace-client/compare/v1.2.0...v1.2.1
