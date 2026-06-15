@@ -1,6 +1,14 @@
 name: Monthly Dependency Audit
 
 on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
   schedule:
     # Runs every 14 days at 03:00 UTC
     - cron: '0 3 */14 * *'
